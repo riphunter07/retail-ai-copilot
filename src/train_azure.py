@@ -12,7 +12,7 @@ job = command(
     code="./src",
     command="python train.py --data ${{inputs.data}}",
     inputs={"data": Input(type="uri_file", path="azureml:sales-data:1")},
-    environment="AzureML-sklearn-1.0",
+    environment="azureml://registries/azureml/environments/sklearn-1.0/labels/latest",
     compute="cpu-cluster",
     display_name="retail-training-job"
 )
