@@ -14,7 +14,7 @@ mlflow.set_experiment("retail-ai")
 
 # Load data
 parser = argparse.ArgumentParser()  
-parser.add_argument("--data", type=str, default="data/sales.csv",required=True)
+parser.add_argument("--data", type=str, default="data/sales.csv")
 args = parser.parse_args()
 df = pd.read_csv(args.data)
 
@@ -48,6 +48,9 @@ for name, model in models.items():
 
         # Log model
         mlflow.sklearn.log_model(model, name)
+
+        #register model in mlflow model registry
+        mlflow.register_model(f"runs:/{mlflow.active_run().info.run_id}/{name}", name)
 
         print(f"{name} RMSE:", rmse)
        
